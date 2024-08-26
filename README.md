@@ -8,6 +8,8 @@
 
 ### Compilación y Ejecución
 
+[**Video Demostrativo**](https://youtu.be/51LUfBn4Src)
+
 1. En una terminal, para iniciar los contenedores Docker utilizar el siguiente comando:
 
     ```
