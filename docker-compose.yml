@@ -1,0 +1,36 @@
+services:
+  service1:
+    build: ./service1
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./service1/logs:/var/log/fastapi
+
+  service2:
+    build: ./service2
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./service2/logs:/var/log/fastapi
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/promtail-config.yml
+      - ./service1/logs:/var/log/fastapi/service1
+      - ./service2/logs:/var/log/fastapi/service2
+    command: -config.file=/etc/promtail/promtail-config.yml
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - loki
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: 'admin'
