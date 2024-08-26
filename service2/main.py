@@ -9,4 +9,4 @@ logger = logging.getLogger(__name__)
 @app.get("/")
 def read_root():
     logger.info("Acceso a servicio 2!")
-    return {"message": "Hola desde servcio 2"}
+    return {"message": "Hola desde servicio 2"}
